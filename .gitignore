@@ -52,3 +52,14 @@ docs/_build/
 
 # PyBuilder
 target/
+
+# SqlLite DB
+*.db
+
+# Lister:
+.ropeproject/
+db_repository/
+db_migrate.py
+db_upgrade.py
+db.downgrade.py
+secret_key.py
