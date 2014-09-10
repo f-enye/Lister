@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+	<div class="col-sm-12">
+		<a href="{{url_for('CreateList')}}">Create List</a>
+		{% if g.user.lists %}
+		<ul>
+		{% for list in g.user.lists %}
+			<li><a href="{{url_for('GetList', list_id=list.id)}}">{{list.list_name}}</a></li>
+		{% endfor %}
+		</ul>
+		{% endif %}
+	</div>
+{% endblock %}

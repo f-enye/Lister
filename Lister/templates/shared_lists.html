@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<ul>
+	{% for shared_list in shared_lists %}
+		<li><a href="{{ url_for('GetList', list_id=shared_list.id) }}">{{shared_list.list_name}}</a></li>
+	{% endfor %}
+	</ul>
+{% endblock %}

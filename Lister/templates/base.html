@@ -1,0 +1,105 @@
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<script src="{{ url_for( 'static', filename='jQuery/jquery-2.1.1.js' ) }}"></script>
+		<script src="{{ url_for('static', filename='bootstrap-3.2.0/js/bootstrap.js' ) }}"></script>
+		<link rel="stylesheet" type=text/css href="{{ url_for('static', filename='bootstrap-3.2.0/css/bootstrap.min.css' ) }}">
+		<script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/0.9.16/socket.io.min.js"></script>
+		<link rel="stylesheet" href="{{ url_for( 'static', filename='css/Lister.css') }}">
+		<script src="{{url_for( 'static', filename='js/search.js' )}}"></script>
+		{% block bundles %}{% endblock %}
+		{% if title %}
+		<title>{{title}}</title>	
+		{% else %}
+		<title>Lister</title>
+		{% endif %}
+	</head>
+	<body>
+		{% if g.user.is_authenticated() %}
+		{{ searchForm.hidden_tag() }}
+		<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+			<div class="container">
+				<div class="row">
+					<div class="navbar-header">
+						<a class="navbar-brand" href="{{ url_for('Index') }}">Lister</a>
+					</div>
+					<button type="button" class="btn btn-default navbar-btn navbar-right">
+						profile							
+					</button>
+					<button id="searchButton" type="button" class="btn btn-default navbar-btn navbar-right">S</button>
+					<form id="searchForm" class="navbar-center" style="display: none;">
+						<div class="form-group">
+							<input id="searchUsername" type="text" required="required" class="form-control" name="{{searchForm.user_name.name}}" placeholder="Search for user">
+							<div id="searchFormError"><p></p></div>
+						</div>
+						<button id="searchConfirm" type="button" class="btn btn-default" data-toggle="modal" data-target="#searchResultsModal">C</button>
+						<button id="searchCancel" type="button" class="btn btn-default">X</button>
+					</form>
+				</div>
+				<div class="row">
+					<ul class="nav navbar-nav">
+						<li>
+						<li><a href="{{ url_for('Index') }}">Your Lists</a></li>
+			            <li><a href="{{ url_for('SharedLists') }}">Shared Lists</a></li>
+			            <li><a href="#Button3">Button3</a></li>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		{% endif %}
+
+		{% with messages = get_flashed_messages() %}
+		{% if messages %}
+		<ul>
+		{% for message in messages %}
+			<li>{{ message }}</li>		
+		{% endfor %}
+		</ul>	
+		{% endif %}
+		{% endwith %}
+		<div class="container">
+			{% block content %}{% endblock %}
+		</div>
+	</body>
+	<footer>
+		<div class="container">
+			<div class="row">
+				<p>This is the footer</p>
+			</div>
+		</div>
+	</footer>
+
+	<!-- This is the share item modal element that appears after a search for a user is made -->
+	<div class="modal fade" id="searchResultsModal" tabindex="-1" role="dialog" aria-labeledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+					<h4 class="modal-title" id="myModalLabel">Let's get to sharing a list...</h4>
+				</div>
+				<div class="modal-body">
+					<form class="shareListForm">
+						<button class="backToUserSearchResults btn btn-default" type="button" style="display: none;"><</button>
+						<button class="forwardToListSet btn btn-default" type="button" style="display: none;">></button>
+						<div class="userSearchResults form-group">
+							<ul class="list-group"></ul>
+							<div class="searchErrors"></div>
+						</div>
+						<div class="listNames form-group" style="display: none;">
+							<!-- The set of your lists will be populated every 
+							time the modal element is shown, rather when the template 
+							is created.-->
+							<ul class="list-group"></ul>
+							<div class="listErrors"></div>
+							<button class="shareListButton btn btn-default" type="button">Share List</button>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</html>

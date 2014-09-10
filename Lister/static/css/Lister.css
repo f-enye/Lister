@@ -1,0 +1,17 @@
+/*to keep the navbar from collapsing we did this*/
+@media (min-width: 1px){
+    .navbar-nav{
+        margin: 0 auto;
+        display: table;
+        table-layout: fixed;
+        float:none;
+    }
+}
+
+body{
+	/*arbitrary number for padding, has to be just 
+	  enough so content can appear below the navigation bar.*/
+	padding-top: 140px; 
+	/*arbitrary height*/
+	min-height: 2000px; 
+}

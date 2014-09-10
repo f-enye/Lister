@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+	<h1>Lister Sign Up Sheet</h1>
+</div>
+<div class="container">
+	<form action="" method="post" name="" role="form">
+		{{form.hidden_tag()}}
+		<div class="form-group">
+			{{form.user_name.label}}
+			<input type="email" required="required" class="form-control"  id="{{form.user_name.id}}" name="{{form.user_name.name}}" placeholder="Enter email">
+			{% for error in form.errors.user_name %}
+			<span style="color : red;">[{{error}}]</span>
+			{% endfor %}<br>
+		</div>
+		<div class="form-group">
+			{{form.password.label}}
+			<input type="password" required="required" class="form-control"  id="{{form.password.id}}" name="{{form.password.name}}" placeholder="Enter Password">
+			{% for error in form.errors.password %}
+			<span style="color : red;">[{{error}}]</span>
+			{% endfor %}<br>
+		</div>
+		<div class="form-group">
+			{{form.confirm_password.label}}
+			<input type="password" required="required" class="form-control" id="{{form.confirm_password.id}}" name="{{form.confirm_password.name}}" placeholder="Confirm Password">
+			{% for error in form.errors.conform_password %}
+			<span style="color: red;">{{error}}</span>
+			{% endfor %}
+		</div>
+		<button type="submit" class="btn btn-default">Sign Up</button>
+	</form>
+</div>
+{% endblock %}

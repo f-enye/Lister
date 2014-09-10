@@ -61,5 +61,5 @@ target/
 db_repository/
 db_migrate.py
 db_upgrade.py
-db.downgrade.py
+db_downgrade.py
 secret_key.py
